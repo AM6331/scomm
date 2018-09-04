@@ -1,0 +1,26 @@
+comm="$1"
+fpath="$3"
+opt="$2"
+
+
+if [ "$comm" = "" ]
+then
+echo "Uses ls and grep to search folders in path for command"
+echo "Usage: scomm <command> [-p path to folder]"
+elif [ "$opt" = "-p" ]
+then
+ls "$fpath" | grep "$comm"
+elif [ "$comm" = "-p" ]
+then
+echo "Usage: scomm <command> [-p path to folder]"
+echo "Expected command as first argument but got path operator"
+elif [ "$opt" = "" ]
+then
+ls $(echo $PATH | sed -e "s/:/ /g") | grep $comm
+elif [ "$opt" != "-p" ]
+then
+echo "Invalid operator \"$opt\""
+echo "Usage: scomm <command> [-p path to folder]"
+else
+ls $(echo $PATH | sed -e "s/:/ /g") | grep $comm
+fi
